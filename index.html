@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Câmbio - Conversor de Moedas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <header class="header">
+            <h1>câmbio<span>.</span></h1>
+            <p>conversor de moedas</p>
+        </header>
+
+        <section class="converter-card">
+
+            <label for="amount">VALOR</label>
+
+            <div class="amount-input">
+                <input
+                    type="text"
+                    id="amount"
+                    value="100,00"
+                    inputmode="decimal"
+                    autocomplete="off"
+                >
+
+                <span id="from-symbol">USD</span>
+            </div>
+
+            <div class="currency-row">
+
+                <div class="currency-box">
+
+                    <img
+                        class="flag"
+                        id="from-flag"
+                        src="https://flagcdn.com/w40/us.png"
+                        alt="Estados Unidos"
+                    >
+
+                    <select id="from-currency">
+                        <option value="USD">USD</option>
+                        <option value="BRL">BRL</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                    </select>
+
+                </div>
+
+                <button
+                    class="swap-button"
+                    id="swap"
+                    type="button"
+                    aria-label="Inverter moedas"
+                >
+                    ⇄
+                </button>
+
+                <div class="currency-box">
+
+                    <img
+                        class="flag"
+                        id="to-flag"
+                        src="https://flagcdn.com/w40/br.png"
+                        alt="Brasil"
+                    >
+
+                    <select id="to-currency">
+                        <option value="BRL">BRL</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <p class="conversion-label" id="conversion-label">
+                US$ 100,00 para BRL
+            </p>
+
+            <div class="result" id="result">
+                Carregando...
+            </div>
+
+        </section>
+
+        <div class="rate-pill">
+            <span class="status-dot"></span>
+
+            <span id="rate">
+                Carregando cotação...
+            </span>
+
+            <span class="pill-separator">·</span>
+
+            <span id="date">
+                Atualizando
+            </span>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
