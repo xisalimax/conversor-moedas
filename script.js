@@ -20,7 +20,6 @@ const toFlag =
 const swapButton =
     document.getElementById("swap");
 
-
 const flags = {
     USD: "https://flagcdn.com/w40/us.png",
     BRL: "https://flagcdn.com/w40/br.png",
@@ -28,7 +27,6 @@ const flags = {
     GBP: "https://flagcdn.com/w40/gb.png",
     JPY: "https://flagcdn.com/w40/jp.png"
 };
-
 
 const flagNames = {
     USD: "Estados Unidos",
@@ -38,7 +36,6 @@ const flagNames = {
     JPY: "Japão"
 };
 
-
 const currencySymbols = {
     USD: "US$",
     BRL: "R$",
@@ -47,15 +44,15 @@ const currencySymbols = {
     JPY: "¥"
 };
 
-
 function parseAmount(value) {
+    if (!value.trim()) return 0;
+
     const normalized = value
         .replace(/\./g, "")
         .replace(",", ".");
 
     return Number(normalized);
 }
-
 
 function formatCurrency(value, currency) {
     return value.toLocaleString("pt-BR", {
@@ -64,13 +61,11 @@ function formatCurrency(value, currency) {
     });
 }
 
-
 function formatDate(date) {
     const [year, month, day] = date.split("-");
 
     return `${day}/${month}/${year}`;
 }
-
 
 function updateFlags() {
     const fromCurrency = fromCurrencySelect.value;
@@ -84,7 +79,6 @@ function updateFlags() {
 
     fromSymbol.textContent = fromCurrency;
 }
-
 
 function updateConversionText(
     amount,
@@ -101,17 +95,23 @@ function updateConversionText(
         `${currencySymbols[fromCurrency]} ${formattedAmount} para ${toCurrency}`;
 }
 
-
 async function convertCurrency() {
     const amount = parseAmount(amountInput.value);
+    const fromCurrency = fromCurrencySelect.value;
+    const toCurrency = toCurrencySelect.value;
+
+    if (amountInput.value.trim() === "") {
+        updateConversionText(0, fromCurrency, toCurrency);
+        result.textContent = "R$ 0,00";
+        rateElement.textContent = `1 ${fromCurrency} = ... ${toCurrency}`;
+        dateElement.textContent = "Digite um valor";
+        return;
+    }
 
     if (isNaN(amount) || amount < 0) {
         result.textContent = "Valor inválido";
         return;
     }
-
-    const fromCurrency = fromCurrencySelect.value;
-    const toCurrency = toCurrencySelect.value;
 
     updateConversionText(
         amount,
@@ -175,7 +175,6 @@ async function convertCurrency() {
     }
 }
 
-
 fromCurrencySelect.addEventListener(
     "change",
     () => {
@@ -184,7 +183,6 @@ fromCurrencySelect.addEventListener(
     }
 );
 
-
 toCurrencySelect.addEventListener(
     "change",
     () => {
@@ -192,7 +190,6 @@ toCurrencySelect.addEventListener(
         convertCurrency();
     }
 );
-
 
 swapButton.addEventListener(
     "click",
@@ -211,12 +208,10 @@ swapButton.addEventListener(
     }
 );
 
-
 amountInput.addEventListener(
     "input",
     convertCurrency
 );
-
 
 updateFlags();
 convertCurrency();
